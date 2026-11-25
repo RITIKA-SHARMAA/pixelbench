@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image
 from typer.testing import CliRunner
 
+import pixelbench.features as features
 from pixelbench.cli import app
 
 
@@ -19,8 +20,6 @@ def test_edges_cli(tmp_path):
 
 def test_classify_cli_with_saved_svm(tmp_path, monkeypatch):
     from sklearn.dummy import DummyClassifier
-    import pixelbench.features as features
-
     image_path = tmp_path / "input.png"
     Image.fromarray(np.zeros((28, 28), dtype=np.uint8)).save(image_path)
     model_path = tmp_path / "models" / "fashion_svm.joblib"

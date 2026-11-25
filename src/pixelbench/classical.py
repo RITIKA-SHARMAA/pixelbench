@@ -6,10 +6,7 @@ import json
 from pathlib import Path
 
 import joblib
-
 import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 from sklearn.decomposition import PCA
@@ -19,6 +16,9 @@ from sklearn.model_selection import cross_val_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
 
 from pixelbench.features import combined_features
 

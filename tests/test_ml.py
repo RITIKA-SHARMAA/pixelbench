@@ -1,4 +1,9 @@
 import numpy as np
+from sklearn.decomposition import PCA
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+
 from pixelbench.features import combined_features, edge_density_features, hog_features
 
 
@@ -16,10 +21,6 @@ def test_pipeline_fits_synthetic_data():
     rng = np.random.default_rng(2)
     x = rng.normal(size=(30, 12))
     y = np.repeat([0, 1, 2], 10)
-    from sklearn.pipeline import Pipeline
-    from sklearn.preprocessing import StandardScaler
-    from sklearn.decomposition import PCA
-    from sklearn.svm import SVC
     model = Pipeline([("scale", StandardScaler()), ("reduce", PCA(n_components=5)),
                       ("classify", SVC())])
     model.fit(x, y)

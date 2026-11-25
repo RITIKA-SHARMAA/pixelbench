@@ -14,6 +14,9 @@ import numpy as np
 import tensorflow as tf
 from sklearn.metrics import accuracy_score, classification_report, f1_score
 
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
+
 from pixelbench.classical import CLASS_NAMES
 from pixelbench.features import combined_features
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Annotated
 
 import cv2
 import numpy as np
@@ -28,8 +29,11 @@ def edges(input: Path, output: Path, low: float = 20.0, high: float = 60.0,
 
 
 @app.command()
-def classify(input: Path, model: str = typer.Option("cnn", help="cnn or svm"),
-             model_path: Path = typer.Option(Path("models/fashion_cnn.keras"))) -> None:
+def classify(
+    input: Path,
+    model: Annotated[str, typer.Option(help="cnn or svm")] = "cnn",
+    model_path: Annotated[Path, typer.Option()] = Path("models/fashion_cnn.keras"),
+) -> None:
     """Classify a 28x28 Fashion-MNIST image using a saved CNN model."""
     from pixelbench.classical import CLASS_NAMES
 

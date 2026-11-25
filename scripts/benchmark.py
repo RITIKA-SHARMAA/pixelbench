@@ -40,14 +40,21 @@ def main() -> None:
     for side in (256, 1024):
         image = rng.random((side, side))
         methods = {
-            "numpy_loop": lambda: loop_convolution(image, kernel),
-            "numpy_vectorized": lambda: conv2d(image, kernel),
-            "opencv_filter2d": lambda: cv2.filter2D(image, -1, kernel[::-1, ::-1]),
+            "numpy_loop": lambda image=image, kernel=kernel: loop_convolution(image, kernel),
+            "numpy_vectorized": lambda image=image, kernel=kernel: conv2d(image, kernel),
+            "opencv_filter2d": lambda image=image, kernel=kernel: cv2.filter2D(
+                image, -1, kernel[::-1, ::-1]
+            ),
         }
         for name, operation in methods.items():
             repetitions = 1 if side == 1024 and name == "numpy_loop" else 3
-            rows.append({"image_size": f"{side}x{side}", "method": name,
-                         "milliseconds": measure(operation, repetitions)})
+            rows.append(
+                {
+                    "image_size": f"{side}x{side}",
+                    "method": name,
+                    "milliseconds": measure(operation, repetitions),
+                }
+            )
     destination = Path("results/benchmark.csv")
     destination.parent.mkdir(parents=True, exist_ok=True)
     with destination.open("w", newline="") as handle:

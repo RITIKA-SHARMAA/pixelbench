@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import time
 from pathlib import Path
 
@@ -14,7 +13,7 @@ import tensorflow as tf
 from sklearn.metrics import accuracy_score, classification_report, f1_score
 import joblib
 
-from pixelbench.classical import CLASS_NAMES, load_fashion_mnist
+from pixelbench.classical import CLASS_NAMES
 from pixelbench.features import combined_features
 
 

@@ -1,7 +1,4 @@
 import numpy as np
-import pytest
-
-from pixelbench.classical import make_svm_pipeline
 from pixelbench.features import combined_features, edge_density_features, hog_features
 
 

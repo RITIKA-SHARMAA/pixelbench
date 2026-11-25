@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 hypothesis = pytest.importorskip("hypothesis")
-from hypothesis import given, strategies as st
+from hypothesis import given, strategies as st  # noqa: E402
 
 from pixelbench.filters import conv2d, gaussian_blur
 

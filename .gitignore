@@ -10,6 +10,9 @@ venv/
 htmlcov/
 data/
 models/
-results/
+results/*
+!results/*.json
+!results/*.csv
+!results/*.png
 *.mat
 .DS_Store

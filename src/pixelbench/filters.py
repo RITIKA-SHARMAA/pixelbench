@@ -78,7 +78,7 @@ def gaussian_blur(image: NDArray, size: int, sigma: float) -> NDArray[np.float64
 def sobel_gradients(image: NDArray) -> tuple[NDArray[np.float64], NDArray[np.float64]]:
     """Return gradient magnitude and angle, analogous to MATLAB ``imgradient``."""
     source = _as_gray_float(image)
-    horizontal = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], dtype=np.float64) / 8.0
+    horizontal = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], dtype=np.float64)
     vertical = horizontal.T
     gx = conv2d(source, horizontal, "same")
     gy = conv2d(source, vertical, "same")

@@ -17,9 +17,9 @@ def test_sobel_matches_opencv_in_interior():
     rng = np.random.default_rng(9)
     image = rng.random((32, 32))
     magnitude, _ = sobel_gradients(image)
-    gx = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=3, scale=1 / 8,
+    gx = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=3, scale=1,
                    borderType=cv2.BORDER_CONSTANT)
-    gy = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=3, scale=1 / 8,
+    gy = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=3, scale=1,
                    borderType=cv2.BORDER_CONSTANT)
     np.testing.assert_allclose(magnitude[2:-2, 2:-2], np.hypot(gx, gy)[2:-2, 2:-2],
                                atol=1e-10, rtol=1e-10)

@@ -45,7 +45,7 @@ pixelbench classify image_28x28.png --model cnn --model-path models/fashion_cnn.
 pixelbench benchmark
 ```
 
-The classifier command expects a 28×28 grayscale image. The CNN uses `models/fashion_cnn.keras`; the SVM uses `models/fashion_svm.joblib` created by the classical training run. Train the model with the Python API:
+The classifier command expects a trained CNN model and a 28×28 grayscale image. Train the model with the Python API:
 
 ```python
 from pixelbench.cnn import train_cnn
@@ -62,14 +62,3 @@ The training and benchmark commands write measurements under `results/`. No benc
 - GNU Octave is used as a MATLAB-compatible reference environment; it is not MATLAB itself.
 - Fashion-MNIST is downloaded by Keras on first use and therefore requires network access at that point.
 - TensorFlow installation and model training can be resource-intensive.
-
-## Publish to GitHub
-
-Create an empty public repository named `pixelbench` under `RITIKA-SHARMAA` on GitHub, then run:
-
-```bash
-git remote add origin https://github.com/RITIKA-SHARMAA/pixelbench.git
-git push -u origin main
-```
-
-This local project already contains its phase-by-phase Git history on the `main` branch.

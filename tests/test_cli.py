@@ -1,3 +1,4 @@
+import numpy as np
 from PIL import Image
 from typer.testing import CliRunner
 

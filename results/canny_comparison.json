@@ -1,0 +1,15 @@
+{
+  "sample_image": "examples/sample.png",
+  "thresholds": {
+    "low": 20,
+    "high": 60,
+    "sigma": 1.0
+  },
+  "opencv_version": "4.13.0",
+  "pixel_agreement_percent": 86.98979591836735,
+  "edge_iou_percent": 32.0,
+  "numpy_edge_pixels": 110,
+  "opencv_edge_pixels": 88,
+  "real_photo": null,
+  "real_photo_status": "not measured: no real photo was supplied in the project"
+}

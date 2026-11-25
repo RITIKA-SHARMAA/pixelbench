@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pixelbench"
+version = "0.1.0"
+description = "NumPy image processing algorithms with reference checks and image classification experiments."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.24",
+  "opencv-python-headless>=4.8",
+  "scikit-learn>=1.3",
+  "tensorflow>=2.15",
+  "matplotlib>=3.7",
+  "seaborn>=0.13",
+  "typer>=0.9"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "pytest-cov>=4.1", "hypothesis>=6.90", "ruff>=0.4", "scipy>=1.11"]
+
+[project.scripts]
+pixelbench = "pixelbench.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

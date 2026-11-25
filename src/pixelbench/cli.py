@@ -15,8 +15,13 @@ app = typer.Typer(help="PixelBench image-processing and classification tools.")
 
 
 @app.command()
-def edges(input: Path, output: Path, low: float = 20.0, high: float = 60.0,
-          sigma: float = 1.0) -> None:
+def edges(
+    input: Path,
+    output: Path,
+    low: float = 20.0,
+    high: float = 60.0,
+    sigma: float = 1.0,
+) -> None:
     """Create a Canny-style edge map from a grayscale or color image."""
     image = cv2.imread(str(input), cv2.IMREAD_GRAYSCALE)
     if image is None:
@@ -32,7 +37,7 @@ def edges(input: Path, output: Path, low: float = 20.0, high: float = 60.0,
 def classify(
     input: Path,
     model: Annotated[str, typer.Option(help="cnn or svm")] = "cnn",
-    model_path: Annotated[Path, typer.Option()] = Path("models/fashion_cnn.keras"),
+    model_path: Annotated[Path | None, typer.Option()] = None,
 ) -> None:
     """Classify a 28x28 Fashion-MNIST image using a saved CNN model."""
     from pixelbench.classical import CLASS_NAMES
@@ -44,7 +49,8 @@ def classify(
         import tensorflow as tf
         from pixelbench.cnn import predict_image
 
-        loaded = tf.keras.models.load_model(model_path)
+        selected_path = model_path or Path("models/fashion_cnn.keras")
+        loaded = tf.keras.models.load_model(selected_path)
         label = predict_image(loaded, image)
     elif model == "svm":
         import joblib
@@ -62,5 +68,5 @@ def classify(
 def benchmark() -> None:
     """Run the convolution benchmark script."""
     import runpy
-    runpy.run_path(str(Path(__file__).resolve().parents[2] / "scripts" / "benchmark.py"),
-                   run_name="__main__")
+    script = Path(__file__).resolve().parents[2] / "scripts" / "benchmark.py"
+    runpy.run_path(str(script), run_name="__main__")

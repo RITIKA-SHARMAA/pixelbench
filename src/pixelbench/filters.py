@@ -24,7 +24,10 @@ def conv2d(image: NDArray, kernel: NDArray, mode: str = "same") -> NDArray[np.fl
     weights = _as_gray_float(kernel, "kernel")
     if mode not in {"same", "valid", "full"}:
         raise ValueError("mode must be one of: 'same', 'valid', 'full'")
-    if mode == "valid" and (weights.shape[0] > source.shape[0] or weights.shape[1] > source.shape[1]):
+    kernel_exceeds_image = (
+        weights.shape[0] > source.shape[0] or weights.shape[1] > source.shape[1]
+    )
+    if mode == "valid" and kernel_exceeds_image:
         raise ValueError("kernel cannot be larger than image in valid mode")
 
     flipped = weights[::-1, ::-1]

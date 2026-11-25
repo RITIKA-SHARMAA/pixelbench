@@ -4,7 +4,7 @@ import pytest
 hypothesis = pytest.importorskip("hypothesis")
 from hypothesis import given, strategies as st  # noqa: E402
 
-from pixelbench.filters import conv2d, gaussian_blur
+from pixelbench.filters import conv2d, gaussian_blur  # noqa: E402
 
 
 @given(st.integers(min_value=2, max_value=8), st.integers(min_value=2, max_value=8))

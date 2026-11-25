@@ -2,16 +2,17 @@
 
 from __future__ import annotations
 
+import json
 import time
 from pathlib import Path
 
+import joblib
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 from sklearn.metrics import accuracy_score, classification_report, f1_score
-import joblib
 
 from pixelbench.classical import CLASS_NAMES
 from pixelbench.features import combined_features
@@ -56,7 +57,7 @@ def train_cnn(subset_size: int | None = None, seed: int = 42, epochs: int = 20,
         train_x, train_y, validation_split=0.1, epochs=epochs,
         batch_size=batch_size, callbacks=[stopper], verbose=2
     )
-    loss, accuracy = model.evaluate(test_x, test_y, verbose=0)
+    loss, _accuracy = model.evaluate(test_x, test_y, verbose=0)
     probabilities = model.predict(test_x, verbose=0)
     predicted = probabilities.argmax(axis=1)
     output, saved_models = Path(output_dir), Path(model_dir)
@@ -67,7 +68,7 @@ def train_cnn(subset_size: int | None = None, seed: int = 42, epochs: int = 20,
     svm_file = saved_models / "fashion_svm.joblib"
     if svm_file.exists():
         svm_model = joblib.load(svm_file)
-        feature_batch = combined_features(test_x[:100])
+        feature_batch = combined_features(test_x[:100, ..., 0])
         svm_model.predict(feature_batch[:1])
         start = time.perf_counter()
         for _ in range(5):

@@ -81,7 +81,10 @@ def train_classical(subset_size: int = 10_000, seed: int = 42,
         ("reduce", PCA(n_components=0.95, svd_solver="full")),
         ("classify", SVC(C=5, kernel="rbf", gamma="scale")),
     ])
-    cv_count = min(5, max(2, len(y_train) // 2))
+    class_counts = np.unique(y_train, return_counts=True)[1]
+    cv_count = min(5, int(class_counts.min()))
+    if cv_count < 2:
+        raise ValueError("at least two training examples per class are required for cross-validation")
     cv_scores = cross_val_score(svm, train_features, y_train, cv=cv_count, scoring="accuracy", n_jobs=-1)
     svm_metrics = _write_evaluation(svm, train_features, y_train, test_features, test_y, output, "svm")
     forest = RandomForestClassifier(n_estimators=250, random_state=seed, n_jobs=-1)

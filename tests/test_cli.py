@@ -23,7 +23,8 @@ def test_classify_cli_with_saved_svm(tmp_path, monkeypatch):
 
     image_path = tmp_path / "input.png"
     Image.fromarray(np.zeros((28, 28), dtype=np.uint8)).save(image_path)
-    model_path = tmp_path / "fashion_svm.joblib"
+    model_path = tmp_path / "models" / "fashion_svm.joblib"
+    model_path.parent.mkdir()
     model = DummyClassifier(strategy="constant", constant=3).fit([[0.0]], [3])
     joblib.dump(model, model_path)
     monkeypatch.chdir(tmp_path)
